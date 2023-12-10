@@ -16,7 +16,13 @@ class QuizViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> generateStory({required int numQuestions, required String topic, required String language, required String difficulty}) async {
+  Future<void> generateStory({
+    required int numQuestions, 
+    required String topic, 
+    required String language, 
+    required String difficulty
+    }) 
+    async {
     isLoading = true;
     final apiKey = Config.apiKey;
     final endpoint = "https://api.openai.com/v1/chat/completions";
