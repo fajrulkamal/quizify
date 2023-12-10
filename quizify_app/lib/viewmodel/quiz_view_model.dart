@@ -8,6 +8,10 @@ class QuizViewModel with ChangeNotifier {
   List<QuizQuestion> _questions = [];
   bool _isLoading = false;
 
+  bool hasMoreQuestions(int questionIndex) {
+    return questionIndex < _questions.length - 1;
+  }
+
   List<QuizQuestion> get questions => _questions;
   bool get isLoading => _isLoading;
 
