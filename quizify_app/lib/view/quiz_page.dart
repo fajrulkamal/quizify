@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
 import 'quiz_config_form.dart';
-import 'question_page.dart'; // Assuming you have this file
+import 'question_page.dart';
 
 class QuizPage extends StatelessWidget {
   @override
@@ -11,13 +11,6 @@ class QuizPage extends StatelessWidget {
       builder: (context, viewModel, child) {
         if (viewModel.isLoading) {
           return Center(child: CircularProgressIndicator());
-        } else if (!viewModel.isLoading && viewModel.questions.isNotEmpty) {
-          Future.microtask(() => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => QuestionPage(questionIndex: 0),
-                ),
-              ));
         }
 
         return Scaffold(
@@ -26,13 +19,21 @@ class QuizPage extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: QuizConfigForm(
               onGenerateQuiz: (numQuestions, topic, language, difficulty) {
-                Provider.of<QuizViewModel>(context, listen: false)
-                    .generateStory(
+                viewModel.generateQuiz(
                   numQuestions: int.parse(numQuestions),
                   topic: topic,
                   language: language,
                   difficulty: difficulty,
-                );
+                ).then((_) {
+                  if (viewModel.questions.isNotEmpty) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => QuestionPage(questionIndex: 0),
+                      ),
+                    );
+                  }
+                });
               },
             ),
           ),

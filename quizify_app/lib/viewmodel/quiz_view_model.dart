@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'config.dart';
 import 'package:quizify_app/model/quiz_model.dart';
+import 'config.dart'; // Ensure this is the correct path to your config file
 
 class QuizViewModel with ChangeNotifier {
   List<QuizQuestion> _questions = [];
   bool _isLoading = false;
-
-  bool hasMoreQuestions(int questionIndex) {
-    return questionIndex < _questions.length - 1;
-  }
+  int _correctAnswers = 0;
 
   List<QuizQuestion> get questions => _questions;
   bool get isLoading => _isLoading;
+  int get correctAnswers => _correctAnswers;
 
   set isLoading(value) {
     _isLoading = value;
     notifyListeners();
   }
 
-  Future<void> generateStory({
+  Future<void> generateQuiz({
     required int numQuestions, 
     required String topic, 
     required String language, 
     required String difficulty
-    }) 
-    async {
+  }) async {
     isLoading = true;
     final apiKey = Config.apiKey;
     final endpoint = "https://api.openai.com/v1/chat/completions";
@@ -61,5 +58,21 @@ class QuizViewModel with ChangeNotifier {
       print("Error Message: ${response.body}");
     }
     isLoading = false;
+  }
+
+  bool hasMoreQuestions(int questionIndex) {
+    return questionIndex < _questions.length - 1;
+  }
+
+  void checkAnswer(int questionIndex, int selectedChoiceIndex) {
+    if (selectedChoiceIndex == _questions[questionIndex].answer) {
+      _correctAnswers++;
+    }
+  }
+
+  void resetQuiz() {
+    _questions.clear();
+    _correctAnswers = 0;
+    notifyListeners();
   }
 }

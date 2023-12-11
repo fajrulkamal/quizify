@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizify_app/model/quiz_model.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'result_page.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -40,7 +39,6 @@ class _QuestionPageState extends State<QuestionPage> {
                   style: TextStyle(fontSize: 18),
                 ),
                 SizedBox(height: 24),
-                // Replace this with a Wrap widget to create a 2x2 grid
                 Wrap(
                   spacing: 8.0, // spacing between adjacent chips
                   runSpacing: 8.0, // spacing between lines
@@ -72,7 +70,7 @@ class _QuestionPageState extends State<QuestionPage> {
                       : () {
                           setState(() {
                             _submitted = true;
-                            _checkAnswer(viewModel);
+                            viewModel.checkAnswer(widget.questionIndex, _selectedChoiceIndex);
                           });
                         },
                 ),
@@ -112,16 +110,6 @@ class _QuestionPageState extends State<QuestionPage> {
         );
       },
     );
-  }
-
-  void _checkAnswer(QuizViewModel viewModel) async {
-    QuizQuestion currentQuestion = viewModel.questions[widget.questionIndex];
-
-    if (_selectedChoiceIndex == currentQuestion.answer) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      int correctAnswers = prefs.getInt('correctAnswers') ?? 0;
-      await prefs.setInt('correctAnswers', correctAnswers + 1);
-    }
   }
 }
 
