@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:quizify_app/model/quiz_model.dart';
-import 'config.dart'; // Ensure this is the correct path to your config file
+import 'config.dart';
 
 class QuizViewModel with ChangeNotifier {
   List<QuizQuestion> _questions = [];

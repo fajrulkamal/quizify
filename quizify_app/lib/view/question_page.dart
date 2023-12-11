@@ -27,64 +27,82 @@ class _QuestionPageState extends State<QuestionPage> {
           appBar: AppBar(
             title: Text('Question ${widget.questionIndex + 1}'),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
+          body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Text(
-                  question.query,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18),
-                ),
-                SizedBox(height: 24),
-                Wrap(
-                  spacing: 8.0, // spacing between adjacent chips
-                  runSpacing: 8.0, // spacing between lines
-                  alignment: WrapAlignment.spaceEvenly,
-                  children: question.choices.asMap().entries.map((entry) {
-                    int idx = entry.key;
-                    String choice = entry.value;
-                    return FractionallySizedBox(
-                      widthFactor: 0.45, // takes 45% of the container width
-                      child: ChoiceButton(
-                        choice: choice,
-                        isSelected: _selectedChoiceIndex == idx,
-                        onPressed: _submitted
-                            ? null
-                            : () {
-                                setState(() {
-                                  _selectedChoiceIndex = idx;
-                                });
-                              },
-                      ),
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: 24),
-                ElevatedButton(
-                  child: Text('Submit'),
-                  onPressed: _submitted
-                      ? null
-                      : () {
-                          setState(() {
-                            _submitted = true;
-                            viewModel.checkAnswer(widget.questionIndex, _selectedChoiceIndex);
-                          });
-                        },
+                Card(
+                  elevation: 4.0,
+                  margin: EdgeInsets.all(16.0),
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          question.query,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Inter', // Specify the font family as Nunito
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            height: 1.43,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+                        Wrap(
+                          spacing: 8.0, // spacing between adjacent chips
+                          runSpacing: 8.0, // spacing between lines
+                          alignment: WrapAlignment.spaceEvenly,
+                          children: question.choices.asMap().entries.map((entry) {
+                            int idx = entry.key;
+                            String choice = entry.value;
+                            return FractionallySizedBox(
+                              widthFactor: 0.45, // takes 45% of the container width
+                              child: ChoiceButton(
+                                choice: choice,
+                                isSelected: _selectedChoiceIndex == idx,
+                                onPressed: _submitted
+                                    ? null
+                                    : () {
+                                        setState(() {
+                                          _selectedChoiceIndex = idx;
+                                        });
+                                      },
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                        SizedBox(height: 24),
+                        ElevatedButton(
+                          child: Text('Submit'),
+                          onPressed: _submitted
+                              ? null
+                              : () {
+                                  setState(() {
+                                    _submitted = true;
+                                    viewModel.checkAnswer(widget.questionIndex, _selectedChoiceIndex);
+                                  });
+                                },
+                        ),
+                        if (_submitted) ...[
+                          Text(
+                            'Correct Answer: ${question.choices[question.answer]}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Explanation: ${question.explanation}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 ),
                 if (_submitted) ...[
-                  Text(
-                    'Correct Answer: ${question.choices[question.answer]}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Explanation: ${question.explanation}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
                   ElevatedButton(
                     child: viewModel.hasMoreQuestions(widget.questionIndex) ? Text('Next Question') : Text('View Results'),
                     onPressed: () {
@@ -133,7 +151,7 @@ class ChoiceButton extends StatelessWidget {
         onPrimary: Colors.black,
         elevation: isSelected ? 2 : 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(5.0),
         ),
         side: BorderSide(color: Colors.blue, width: 2),
         padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
