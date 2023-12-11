@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
 import 'quiz_config_form.dart';
 import 'question_page.dart';
+import 'bottom_navigation_bar.dart';
 
 class QuizPage extends StatelessWidget {
   @override
@@ -37,6 +38,7 @@ class QuizPage extends StatelessWidget {
               },
             ),
           ),
+          bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 0),
         );
       },
     );

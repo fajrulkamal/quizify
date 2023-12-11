@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:quizify_app/model/quiz_model.dart';
 import 'config.dart';
+import 'package:quizify_app/model/quiz_configuration.dart';
+import 'package:quizify_app/model/quiz_history.dart';
 
 class QuizViewModel with ChangeNotifier {
   List<QuizQuestion> _questions = [];
@@ -68,6 +70,15 @@ class QuizViewModel with ChangeNotifier {
     if (selectedChoiceIndex == _questions[questionIndex].answer) {
       _correctAnswers++;
     }
+  }
+
+  List<QuizHistory> _quizHistory = [];
+
+  List<QuizHistory> get quizHistory => _quizHistory;
+
+  void saveQuizResult(QuizConfiguration config, int correctAnswers) {
+    _quizHistory.add(QuizHistory(config, correctAnswers));
+    notifyListeners();
   }
 
   void resetQuiz() {

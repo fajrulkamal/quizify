@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
+import 'bottom_navigation_bar.dart';
 
 class QuizHistoryPage extends StatelessWidget {
   @override
@@ -25,6 +26,7 @@ class QuizHistoryPage extends StatelessWidget {
               );
             },
           ),
+          bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),
         );
       },
     );
