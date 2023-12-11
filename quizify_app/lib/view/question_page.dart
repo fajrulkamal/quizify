@@ -43,7 +43,7 @@ class _QuestionPageState extends State<QuestionPage> {
                           question.query,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontFamily: 'Inter', // Specify the font family as Nunito
+                            fontFamily: 'Inter',
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             height: 1.43,
