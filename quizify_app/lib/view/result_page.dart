@@ -22,6 +22,7 @@ class ResultPage extends StatelessWidget {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
+                    viewModel.saveQuizResult(); // Updated to call without parameters
                     viewModel.resetQuiz();
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },

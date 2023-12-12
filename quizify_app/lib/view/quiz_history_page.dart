@@ -8,6 +8,18 @@ class QuizHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<QuizViewModel>(
       builder: (context, viewModel, child) {
+        if (viewModel.quizHistory.isEmpty) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Quiz History'),
+            ),
+            body: Center(
+              child: Text('No history available.'),
+            ),
+            bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),
+          );
+        }
+
         return Scaffold(
           appBar: AppBar(
             title: Text('Quiz History'),
@@ -21,7 +33,6 @@ class QuizHistoryPage extends StatelessWidget {
                   title: Text('Topic: ${history.config.topic}'),
                   subtitle: Text('Correct Answers: ${history.correctAnswers}'),
                   trailing: Text('Difficulty: ${history.config.difficulty}'),
-                  // Add more details as needed
                 ),
               );
             },

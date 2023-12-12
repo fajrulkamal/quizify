@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:quizify_app/model/quiz_model.dart';
-import 'config.dart';
 import 'package:quizify_app/model/quiz_configuration.dart';
 import 'package:quizify_app/model/quiz_history.dart';
+import 'config.dart';
 
 class QuizViewModel with ChangeNotifier {
   List<QuizQuestion> _questions = [];
   bool _isLoading = false;
   int _correctAnswers = 0;
+  QuizConfiguration? _currentConfig; // Added to store the current quiz configuration
+  List<QuizHistory> _quizHistory = [];
 
   List<QuizQuestion> get questions => _questions;
   bool get isLoading => _isLoading;
   int get correctAnswers => _correctAnswers;
+  QuizConfiguration? get currentConfig => _currentConfig; // Getter for currentConfig
+  List<QuizHistory> get quizHistory => _quizHistory;
 
   set isLoading(value) {
     _isLoading = value;
@@ -25,8 +29,13 @@ class QuizViewModel with ChangeNotifier {
     required String topic, 
     required String language, 
     required String difficulty
+
+    QuizConfiguration(this.topic, this.language, this.difficulty, this.numQuestions);
   }) async {
     isLoading = true;
+    // Set the current quiz configuration
+    _currentConfig = QuizConfiguration(topic, language, difficulty, numQuestions);
+
     final apiKey = Config.apiKey;
     final endpoint = "https://api.openai.com/v1/chat/completions";
     final prompt = 'Give me $numQuestions multiple choice questions about $topic in the $language language. The questions should be at $difficulty level. return your answer entirely in the form of a JSON Object. The JSON Object should have a key named "questions" which is an array of the questions. each quiz question should include the choices, the answer, and a brief explanation of why the answer is correct. Do not include anything other than the JSON. The JSON properties of each question should be "query" (which is the question), "choices", "answer", and "explanation". the choices should not have any ordinal value like A, B, C, D or a number like 1, 2, 3, 4. The answer should be the 0-indexed number of the correct choice.';
@@ -72,18 +81,19 @@ class QuizViewModel with ChangeNotifier {
     }
   }
 
-  List<QuizHistory> _quizHistory = [];
-
-  List<QuizHistory> get quizHistory => _quizHistory;
-
-  void saveQuizResult(QuizConfiguration config, int correctAnswers) {
-    _quizHistory.add(QuizHistory(config, correctAnswers));
+  void saveQuizResult() {
+    if (_currentConfig != null) {
+      var newHistory = QuizHistory(_currentConfig!, _correctAnswers);
+      _quizHistory.add(newHistory);
+      print("New quiz history added: ${newHistory.config.topic}, Correct Answers: ${newHistory.correctAnswers}");
+    }
     notifyListeners();
   }
 
   void resetQuiz() {
     _questions.clear();
     _correctAnswers = 0;
+    _currentConfig = null; // Reset the current configuration
     notifyListeners();
   }
 }
