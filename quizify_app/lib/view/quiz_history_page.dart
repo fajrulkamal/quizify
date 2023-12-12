@@ -28,10 +28,12 @@ class QuizHistoryPage extends StatelessWidget {
             itemCount: viewModel.quizHistory.length,
             itemBuilder: (context, index) {
               var history = viewModel.quizHistory[index];
+              int totalQuestions = history.config.numberOfQuestions;
+              int correctAnswers = history.correctAnswers;
               return Card(
                 child: ListTile(
                   title: Text('Topic: ${history.config.topic}'),
-                  subtitle: Text('Correct Answers: ${history.correctAnswers}'),
+                  subtitle: Text('Correct Answers: $correctAnswers/$totalQuestions'),
                   trailing: Text('Difficulty: ${history.config.difficulty}'),
                 ),
               );

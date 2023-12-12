@@ -2,39 +2,36 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:quizify_app/model/quiz_model.dart';
+import 'config.dart';
 import 'package:quizify_app/model/quiz_configuration.dart';
 import 'package:quizify_app/model/quiz_history.dart';
-import 'config.dart';
 
 class QuizViewModel with ChangeNotifier {
+  QuizConfiguration? _currentConfig;
   List<QuizQuestion> _questions = [];
   bool _isLoading = false;
   int _correctAnswers = 0;
-  QuizConfiguration? _currentConfig; // Added to store the current quiz configuration
-  List<QuizHistory> _quizHistory = [];
 
   List<QuizQuestion> get questions => _questions;
   bool get isLoading => _isLoading;
   int get correctAnswers => _correctAnswers;
-  QuizConfiguration? get currentConfig => _currentConfig; // Getter for currentConfig
-  List<QuizHistory> get quizHistory => _quizHistory;
 
   set isLoading(value) {
     _isLoading = value;
     notifyListeners();
   }
 
+  QuizConfiguration? get currentConfig => _currentConfig;
+
   Future<void> generateQuiz({
     required int numQuestions, 
     required String topic, 
     required String language, 
     required String difficulty
-
-    QuizConfiguration(this.topic, this.language, this.difficulty, this.numQuestions);
   }) async {
     isLoading = true;
-    // Set the current quiz configuration
-    _currentConfig = QuizConfiguration(topic, language, difficulty, numQuestions);
+
+    _currentConfig = QuizConfiguration(topic, language, numQuestions, difficulty);
 
     final apiKey = Config.apiKey;
     final endpoint = "https://api.openai.com/v1/chat/completions";
@@ -51,7 +48,7 @@ class QuizViewModel with ChangeNotifier {
         "messages": [{"role": 'user', "content": prompt}],
         "model": model,
         "max_tokens": 2048,
-        "temperature": 0.6,
+        "temperature": 0.8,
         "top_p": 1,
         "frequency_penalty": 0,
         "presence_penalty": 0,
@@ -81,6 +78,10 @@ class QuizViewModel with ChangeNotifier {
     }
   }
 
+  List<QuizHistory> _quizHistory = [];
+
+  List<QuizHistory> get quizHistory => _quizHistory;
+
   void saveQuizResult() {
     if (_currentConfig != null) {
       var newHistory = QuizHistory(_currentConfig!, _correctAnswers);
@@ -93,7 +94,6 @@ class QuizViewModel with ChangeNotifier {
   void resetQuiz() {
     _questions.clear();
     _correctAnswers = 0;
-    _currentConfig = null; // Reset the current configuration
     notifyListeners();
   }
 }
