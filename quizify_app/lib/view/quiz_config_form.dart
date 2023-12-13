@@ -43,6 +43,8 @@ class _QuizConfigFormState extends State<QuizConfigForm> {
               border: _outlineInputBorder(),
               enabledBorder: _outlineInputBorder(),
               focusedBorder: _outlineInputBorder(),
+              fillColor: Colors.white.withOpacity(0.5),
+              filled: true,
             ),
           ),
           SizedBox(height: 20),
@@ -54,6 +56,8 @@ class _QuizConfigFormState extends State<QuizConfigForm> {
               border: _outlineInputBorder(),
               enabledBorder: _outlineInputBorder(),
               focusedBorder: _outlineInputBorder(),
+              fillColor: Colors.white.withOpacity(0.5),
+              filled: true,
             ),
             items: ['5', '10', '15', '20']
                 .map<DropdownMenuItem<String>>((String value) {
@@ -77,6 +81,8 @@ class _QuizConfigFormState extends State<QuizConfigForm> {
               border: _outlineInputBorder(),
               enabledBorder: _outlineInputBorder(),
               focusedBorder: _outlineInputBorder(),
+              fillColor: Colors.white.withOpacity(0.5),
+              filled: true,
             ),
             items: ['English', 'Spanish', 'French', 'German']
                 .map<DropdownMenuItem<String>>((String value) {
@@ -100,6 +106,8 @@ class _QuizConfigFormState extends State<QuizConfigForm> {
               border: _outlineInputBorder(),
               enabledBorder: _outlineInputBorder(),
               focusedBorder: _outlineInputBorder(),
+              fillColor: Colors.white.withOpacity(0.5),
+              filled: true,
             ),
             items: ['Easy', 'Medium', 'Hard']
                 .map<DropdownMenuItem<String>>((String value) {
