@@ -30,6 +30,9 @@ class ResultPage extends StatelessWidget {
                     viewModel.resetQuiz();
                     Navigator.of(context).popUntil((route) => route.isFirst);
                   },
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF06528A),
+                  ),
                   child: Text('Back to Home'),
                 ),
               ],

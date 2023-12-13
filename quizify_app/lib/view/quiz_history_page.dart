@@ -12,11 +12,15 @@ class QuizHistoryPage extends StatelessWidget {
         if (viewModel.quizHistory.isEmpty) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('Quiz History'),
+              title: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text('Quiz History'),
+              ),
               backgroundColor: Color(0xFF06528A),
             ),
-            body: Center(
+            body: Background(child: Center(
               child: Text('No history available.'),
+            ),
             ),
             bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),
           );
@@ -24,22 +28,30 @@ class QuizHistoryPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Quiz History'),
+            title: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('Quiz History'),
+            ),
+            backgroundColor: Color(0xFF06528A),
           ),
-          body: Background(child: ListView.builder(
-            itemCount: viewModel.quizHistory.length,
-            itemBuilder: (context, index) {
-              var history = viewModel.quizHistory[index];
-              int totalQuestions = history.config.numberOfQuestions;
-              int correctAnswers = history.correctAnswers;
-              return Card(
-                child: ListTile(
-                  title: Text('Topic: ${history.config.topic}'),
-                  subtitle: Text('Correct Answers: $correctAnswers/$totalQuestions'),
-                  trailing: Text('Difficulty: ${history.config.difficulty}'),
-                ),
-              );
-            },
+          body: Background(child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView.builder(
+              itemCount: viewModel.quizHistory.length,
+              itemBuilder: (context, index) {
+                var history = viewModel.quizHistory[index];
+                int totalQuestions = history.config.numberOfQuestions;
+                int correctAnswers = history.correctAnswers;
+                return Card(
+                  child: ListTile(
+                    title: Text('Topic: ${history.config.topic}'),
+                    subtitle: Text('Correct Answers: $correctAnswers/$totalQuestions'),
+                    trailing: Text('Difficulty: ${history.config.difficulty}'),
+                  ),
+                  color: Colors.white.withOpacity(0.5),
+                );
+              },
+            ),
           ),
           ),
           bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),

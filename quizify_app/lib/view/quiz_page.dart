@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quizify/view/widgets/background.dart';
 import 'package:quizify/viewmodel/quiz_view_model.dart';
 import 'quiz_config_form.dart';
 import 'question_page.dart';
@@ -20,7 +21,7 @@ class QuizPage extends StatelessWidget {
             child: Text('Quizify App'),
           ),
             backgroundColor: Color(0xFF06528A),),
-          body: Padding(
+          body: Background(child: Padding(
             padding: EdgeInsets.all(16.0),
             child: QuizConfigForm(
               onGenerateQuiz: (numQuestions, topic, language, difficulty) {
@@ -41,6 +42,7 @@ class QuizPage extends StatelessWidget {
                 });
               },
             ),
+          ),
           ),
           bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 0),
         );
