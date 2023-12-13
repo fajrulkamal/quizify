@@ -26,6 +26,7 @@ class _QuestionPageState extends State<QuestionPage> {
         return Scaffold(
           appBar: AppBar(
             title: Text('Question ${widget.questionIndex + 1}'),
+            backgroundColor: Color(0xFF06528A), // AppBar color
           ),
           body: Center(
             child: Column(
@@ -34,6 +35,7 @@ class _QuestionPageState extends State<QuestionPage> {
                 Card(
                   elevation: 4.0,
                   margin: EdgeInsets.all(16.0),
+                  color: Colors.white, // Card background color
                   child: Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Column(
@@ -48,18 +50,19 @@ class _QuestionPageState extends State<QuestionPage> {
                             fontWeight: FontWeight.w400,
                             height: 1.43,
                             letterSpacing: -0.5,
+                            color: Colors.black, // Font color for the question
                           ),
                         ),
                         SizedBox(height: 24),
                         Wrap(
-                          spacing: 8.0, // spacing between adjacent chips
-                          runSpacing: 8.0, // spacing between lines
+                          spacing: 8.0,
+                          runSpacing: 8.0,
                           alignment: WrapAlignment.spaceEvenly,
                           children: question.choices.asMap().entries.map((entry) {
                             int idx = entry.key;
                             String choice = entry.value;
                             return FractionallySizedBox(
-                              widthFactor: 0.45, // takes 45% of the container width
+                              widthFactor: 0.45,
                               child: ChoiceButton(
                                 choice: choice,
                                 isSelected: _selectedChoiceIndex == idx,
@@ -76,6 +79,10 @@ class _QuestionPageState extends State<QuestionPage> {
                         ),
                         SizedBox(height: 24),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFF06528A), // Button background color
+                            onPrimary: Colors.white, // Button text color
+                          ),
                           child: Text('Submit'),
                           onPressed: _submitted
                               ? null
@@ -104,6 +111,10 @@ class _QuestionPageState extends State<QuestionPage> {
                 ),
                 if (_submitted) ...[
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF06528A), // Button background color
+                      onPrimary: Colors.white, // Button text color
+                    ),
                     child: viewModel.hasMoreQuestions(widget.questionIndex) ? Text('Next Question') : Text('View Results'),
                     onPressed: () {
                       if (viewModel.hasMoreQuestions(widget.questionIndex)) {
@@ -147,22 +158,22 @@ class ChoiceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        primary: isSelected ? Colors.blue[600] : Colors.white,
-        onPrimary: Colors.black,
+        primary: isSelected ? Color(0xFF06528A) : Color(0xFFC2F0EF), // Button fill color
+        onPrimary: Colors.white, // Button text color for selected state
         elevation: isSelected ? 2 : 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        side: BorderSide(color: Colors.blue, width: 2),
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        side: BorderSide(color: Color(0xFF2D6E96), width: 2), // Choice's outline
+        padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
       ),
       onPressed: onPressed,
-      child: Text(
-        choice,
+      child: Text(choice,
         style: TextStyle(
-          color: isSelected ? Colors.white : Colors.blue,
-        ),
-      ),
+          color: isSelected ? Colors.white : Colors.black, // Text color changes based on selection
+          fontFamily: 'Inter',
+          ),
+      )
     );
   }
 }
