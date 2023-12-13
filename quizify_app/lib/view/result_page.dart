@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quizify_app/viewmodel/quiz_view_model.dart';
+import 'package:quizify/viewmodel/quiz_view_model.dart';
 
 class ResultPage extends StatelessWidget {
   @override

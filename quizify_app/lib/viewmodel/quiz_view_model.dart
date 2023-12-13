@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:quizify_app/model/quiz_model.dart';
+import 'package:quizify/model/quiz_model.dart';
 import 'config.dart';
-import 'package:quizify_app/model/quiz_configuration.dart';
-import 'package:quizify_app/model/quiz_history.dart';
+import 'package:quizify/model/quiz_configuration.dart';
+import 'package:quizify/model/quiz_history.dart';
 
 class QuizViewModel with ChangeNotifier {
   QuizConfiguration? _currentConfig;

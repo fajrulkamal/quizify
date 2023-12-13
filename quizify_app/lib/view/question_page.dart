@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quizify_app/model/quiz_model.dart';
-import 'package:quizify_app/viewmodel/quiz_view_model.dart';
+import 'package:quizify/model/quiz_model.dart';
+import 'package:quizify/viewmodel/quiz_view_model.dart';
 import 'result_page.dart';
 import 'widgets/background.dart';
 
