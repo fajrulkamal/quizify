@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quizify_app/model/quiz_model.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
 import 'result_page.dart';
+import 'widgets/background.dart';
 
 class QuestionPage extends StatefulWidget {
   final int questionIndex;
@@ -25,10 +26,13 @@ class _QuestionPageState extends State<QuestionPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Question ${widget.questionIndex + 1}'),
+            title: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('Question ${widget.questionIndex + 1}'),
+            ),
             backgroundColor: Color(0xFF06528A), // AppBar color
           ),
-          body: Center(
+          body: Background(child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -136,6 +140,7 @@ class _QuestionPageState extends State<QuestionPage> {
               ],
             ),
           ),
+          )
         );
       },
     );

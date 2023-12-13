@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
-import 'bottom_navigation_bar.dart';
+import 'widgets/bottom_navigation_bar.dart';
+import 'widgets/background.dart';
 
 class QuizHistoryPage extends StatelessWidget {
   @override
@@ -12,6 +13,7 @@ class QuizHistoryPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Quiz History'),
+              backgroundColor: Color(0xFF06528A),
             ),
             body: Center(
               child: Text('No history available.'),
@@ -24,7 +26,7 @@ class QuizHistoryPage extends StatelessWidget {
           appBar: AppBar(
             title: Text('Quiz History'),
           ),
-          body: ListView.builder(
+          body: Background(child: ListView.builder(
             itemCount: viewModel.quizHistory.length,
             itemBuilder: (context, index) {
               var history = viewModel.quizHistory[index];
@@ -38,6 +40,7 @@ class QuizHistoryPage extends StatelessWidget {
                 ),
               );
             },
+          ),
           ),
           bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 1),
         );

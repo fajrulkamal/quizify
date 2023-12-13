@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'quiz_page.dart';
-import 'quiz_history_page.dart';
+import '../quiz_page.dart';
+import '../quiz_history_page.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -11,6 +11,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
+      selectedItemColor: Color(0xFF06528A),
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

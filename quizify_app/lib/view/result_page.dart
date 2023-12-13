@@ -9,7 +9,11 @@ class ResultPage extends StatelessWidget {
       builder: (context, viewModel, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Quiz Results'),
+            title: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('Quiz Results'),
+            ),
+              backgroundColor: Color(0xFF06528A),
           ),
           body: Center(
             child: Column(

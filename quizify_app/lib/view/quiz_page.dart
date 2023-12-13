@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quizify_app/viewmodel/quiz_view_model.dart';
 import 'quiz_config_form.dart';
 import 'question_page.dart';
-import 'bottom_navigation_bar.dart';
+import 'widgets/bottom_navigation_bar.dart';
 
 class QuizPage extends StatelessWidget {
   @override
@@ -15,7 +15,11 @@ class QuizPage extends StatelessWidget {
         }
 
         return Scaffold(
-          appBar: AppBar(title: Text('Quizify App')),
+          appBar: AppBar(title: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('Quizify App'),
+          ),
+            backgroundColor: Color(0xFF06528A),),
           body: Padding(
             padding: EdgeInsets.all(16.0),
             child: QuizConfigForm(
